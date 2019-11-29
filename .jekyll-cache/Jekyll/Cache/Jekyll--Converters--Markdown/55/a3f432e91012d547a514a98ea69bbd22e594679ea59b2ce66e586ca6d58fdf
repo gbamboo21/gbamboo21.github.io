@@ -1,0 +1,42 @@
+I"l<p>这是我建立博客成功的第一页 我想看看是否会有效果</p>
+
+<p>看来是已经成功了，我想在添加一些内容。</p>
+
+<p>自己所理解的vue解决跨域问题</p>
+
+<p>解决跨域的问题的方法有两种(我知道的)：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.降低浏览器版本：
+
+    第一步右键点击一个浏览器,点击创建快捷方式，可以重命名为降低版本。
+
+    第二步右键点击降低版本,点击属性,然后将目标(T)里面的内容改为： --user-data-dir=D:\MyChromeDevUserData
+
+    第三步进入我的电脑D盘的根目录下创建一个名为MyChromeDevUserData的文件夹
+
+    第四步打开已经弄好的降低版本浏览器,如果地址栏下方有：
+    “您使用的是不受支持的命令行标记：--disable-web-security。稳定性和安全性会有所下降”的话就是成功了
+
+2.proxy:
+    
+    在项目文件夹更目录中打开vue.config.js,如果没有就创建一个
+
+    然后加入以下代码
+
+    devServer: {
+    proxy: {
+        '/api': {
+            target: 'http://www.mianshiti.top/api/v4',// 你请求的第三方接
+            changeOrigin: true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
+            pathRewrite: {  // 路径重写
+                '^/api': '' // 替换target中的请求地址，也就是说以后你在请求http://www.mianshiti.top/api/v4这个地址的时候直接写成/api即可。
+            }
+        }
+    }
+},
+     
+     如果src里的main.js中设置有请求头就把请求头改成axios.defaults.baseURL ='/api'
+     如果没有请求头，就把调用接口的HTTP中与'http://www.mianshiti.top/api/v4'相同的改为'/api'
+</code></pre></div></div>
+
+:ET
